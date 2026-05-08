@@ -1,290 +1,254 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>💗 给最爱的你 💗</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>💗 给最爱的你 💗</title>
+    <style>
+        /* --- 基础设置 --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            background: linear-gradient(180deg, #ffdde1 0%, #ee9ca7 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
 
-<style>
-/* ================= 全局变量 ================= */
-:root {
-    --hk-pink: #ffd1dc;
-    --hk-deep-pink: #ff6f91;
-    --text-color: #6b3a4a;
-    --card-bg: rgba(255, 255, 255, 0.85);
-}
+        /* --- 容器 --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-/* ================= 基础重置 ================= */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-    font-family: 'Ma Shan Zheng', 'ZCOOL KuaiLe', cursive, sans-serif;
-    background: linear-gradient(135deg, #fff0f5, #ffe4ec);
-    color: var(--text-color);
-    overflow-x: hidden;
-}
+        /* --- 头部 --- */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            color: #ff0066;
+            font-size: 24px;
+            font-weight: bold;
+        }
 
-/* ================= 蝴蝶结飘落 ================= */
-.bow { position: fixed; top: -40px; font-size: 24px; animation: fall linear infinite; z-index: 0; opacity: 0.8; }
-@keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+        /* --- 卡片通用 --- */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
 
-/* ================= 锁屏 ================= */
-#lockScreen {
-    position: fixed; inset: 0;
-    background: linear-gradient(135deg, var(--hk-pink), #ffb6c1);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 1000;
-}
-.lock-box {
-    background: white; padding: 30px; border-radius: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    text-align: center; width: 85%;
-}
-.lock-box h1 { color: var(--hk-deep-pink); font-size: 1.8rem; }
-.lock-box input {
-    width: 100%; padding: 12px; margin-top: 20px;
-    border-radius: 25px; border: 2px solid var(--hk-pink);
-    font-size: 1.1rem; text-align: center;
-}
-.lock-box button {
-    margin-top: 15px; width: 100%; padding: 12px;
-    border: none; border-radius: 25px;
-    background: linear-gradient(120deg, var(--hk-pink), var(--hk-deep-pink));
-    color: white; font-size: 1.2rem; cursor: pointer;
-}
+        h2 {
+            color: #ff6b81;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-/* ================= 主内容 ================= */
-#mainContent { display: none; padding-bottom: 50px; }
+        /* --- 照片墙 --- */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .gallery img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
 
-/* ================= Header ================= */
-header {
-    text-align: center; padding: 50px 20px 30px;
-    background: linear-gradient(120deg, var(--hk-pink), #ffb6c1);
-    border-bottom-left-radius: 50% 20%; border-bottom-right-radius: 50% 20%;
-}
-header h1 { font-size: 2.2rem; color: white; text-shadow: 2px 2px #ff8fa3; }
+        /* --- 视频区 --- */
+        .video-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .video-item {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .video-item video {
+            width: 100%;
+            display: block;
+            border-radius: 15px;
+        }
 
-/* ================= 卡片通用样式 ================= */
-.section-card {
-    margin: 25px auto; width: 92%;
-    background: var(--card-bg); border-radius: 25px;
-    padding: 20px; box-shadow: 0 8px 25px rgba(255,182,193,0.3);
-}
+        /* --- 底部 --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #ff6b81;
+            font-size: 14px;
+        }
 
-.section-card h2 {
-    text-align: center; color: var(--hk-deep-pink);
-    font-size: 1.5rem; margin-bottom: 15px;
-}
+        /* --- 蝴蝶装饰 --- */
+        .butterfly {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            z-index: 999;
+            animation: float 6s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
 
-/* ================= 照片墙 (Masonry Layout) ================= */
-.photo-wall {
-    column-count: 2; column-gap: 10px;
-}
-.photo-wall img {
-    width: 100%; border-radius: 15px;
-    margin-bottom: 10px;
-    break-inside: avoid;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-.photo-wall img:hover { transform: scale(1.03); }
-
-/* ================= 视频网格 ================= */
-.video-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-.video-grid video {
-    width: 100%; border-radius: 15px;
-    background: #000;
-    cursor: pointer;
-}
-
-/* ================= 模态框 (点击放大) ================= */
-.modal {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.9);
-    z-index: 2000; justify-content: center; align-items: center;
-}
-.modal img, .modal video {
-    max-width: 95vw; max-height: 90vh;
-    border-radius: 10px;
-}
-.modal.active { display: flex; }
-
-/* ================= 音乐提示 ================= */
-.music-tip {
-    position: fixed; bottom: 20px; right: 20px;
-    background: var(--hk-deep-pink); color: white;
-    padding: 10px 15px; border-radius: 20px;
-    font-size: 0.9rem; z-index: 100;
-}
-
-</style>
+        /* --- 弹窗遮罩 --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal img, .modal video {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- 🎀 蝴蝶结 -->
-<script>
-for (let i = 0; i < 10; i++) {
-    const bow = document.createElement('div');
-    bow.className = 'bow';
-    bow.style.left = Math.random() * 100 + 'vw';
-    bow.style.animationDuration = (Math.random() * 3 + 4) + 's';
-    bow.innerHTML = ['🎀', '💖', '✨'][Math.floor(Math.random() * 3)];
-    document.body.appendChild(bow);
-}
-</script>
+    <!-- 蝴蝶背景 -->
+    <div id="butterflies"></div>
 
-<!-- 🔒 锁屏 -->
-<div id="lockScreen">
-    <div class="lock-box">
-        <h1>💗 我们的秘密花园 💗</h1>
-        <input id="pwd" type="password" placeholder="请输入密码">
-        <button onclick="unlock()">进入</button>
+    <div class="container">
+        <!-- 顶部天数 -->
+        <header>
+            ❤️ 我们已经在一起了 469 天 ❤️
+        </header>
+
+        <!-- 情书 -->
+        <div class="card">
+            <h2>💌 亲爱的</h2>
+            <div style="line-height: 1.8;">
+                从我遇见你的那天起，世界就悄悄变成了粉红色。
+                你是我的小幸运，也是我最大的安心。
+                无论未来有多少未知，我都想和你一起慢慢走。
+                <strong>我爱你，不止今天，而是余生每一天。💕</strong>
+            </div>
+        </div>
+
+        <!-- 照片画廊 -->
+        <div class="card">
+            <h2>📸 甜蜜画廊</h2>
+            <div class="gallery">
+                <!-- ★★★ 重点：在这里写死你的照片 ★★★ -->
+                <!-- 假设你的照片叫 1.jpg, 2.jpg ... 放在 photos 文件夹里 -->
+                <!-- 复制下面这一行，改数字和名字就可以添加更多 -->
+                
+                <!-- 示例图片占位符 (请替换为你的真实图片) -->
+                <img src="./photos/1.jpg" alt="回忆1" onclick="openModal(this.src)">
+                <img src="./photos/2.jpg" alt="回忆2" onclick="openModal(this.src)">
+                <img src="./photos/3.jpg" alt="回忆3" onclick="openModal(this.src)">
+                <img src="./photos/4.jpg" alt="回忆4" onclick="openModal(this.src)">
+                <img src="./photos/5.jpg" alt="回忆5" onclick="openModal(this.src)">
+                <img src="./photos/6.jpg" alt="回忆6" onclick="openModal(this.src)">
+                <!-- 如果你有更多，继续复制上面那行 -->
+
+            </div>
+        </div>
+
+        <!-- 视频区 -->
+        <div class="card">
+            <h2>🎬 心动瞬间</h2>
+            <div class="video-list">
+                <!-- ★★★ 重点：在这里写死你的视频 ★★★ -->
+                <!-- 假设你的视频叫 1.mp4, 2.mp4 ... 放在 videos 文件夹里 -->
+                
+                <!-- 示例视频占位符 (请替换为你的真实视频) -->
+                <div class="video-item">
+                    <video controls poster="./photos/1.jpg"> <!-- 这里可以放个封面图 -->
+                        <source src="./videos/1.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-item">
+                    <video controls poster="./photos/2.jpg">
+                        <source src="./videos/2.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <!-- 如果有更多视频，继续复制上面这个 div -->
+
+            </div>
+        </div>
+
+        <footer>
+            Made with 💖 just for you
+        </footer>
     </div>
-</div>
 
-<!-- 🎶 音乐 -->
-<audio id="bgm" loop>
-    <source src="./love.mp3" type="audio/mpeg">
-</audio>
-
-<!-- 🌸 主内容 -->
-<div id="mainContent">
-
-<header>
-    <h1>🌸 给最亲爱的你 🌸</h1>
-</header>
-
-<!-- 在一起天数 -->
-<div class="section-card">
-    <h2 id="daysTogether">💖 在一起的第 N 天 💖</h2>
-</div>
-
-<!-- 打字机情书 -->
-<div class="section-card">
-    <h2>💌 我的心里话</h2>
-    <p id="loveLetter" style="line-height: 2; font-size: 1.1rem; min-height: 80px;"></p>
-</div>
-
-<!-- 照片区 -->
-<div class="section-card">
-    <h2>📸 甜蜜瞬间</h2>
-    <div class="photo-wall" id="photoWall">
-        <!-- 这里放精选照片，建议 12-16 张 -->
-        <img src="./photos/1.jpg" onclick="openModal(this.src)">
-        <img src="./photos/2.jpg" onclick="openModal(this.src)">
-        <img src="./photos/3.jpg" onclick="openModal(this.src)">
-        <img src="./photos/4.jpg" onclick="openModal(this.src)">
-        <img src="./photos/5.jpg" onclick="openModal(this.src)">
-        <img src="./photos/6.jpg" onclick="openModal(this.src)">
-        <img src="./photos/7.jpg" onclick="openModal(this.src)">
-        <img src="./photos/8.jpg" onclick="openModal(this.src)">
-        <img src="./photos/9.jpg" onclick="openModal(this.src)">
-        <img src="./photos/10.jpg" onclick="openModal(this.src)">
-        <img src="./photos/11.jpg" onclick="openModal(this.src)">
-        <img src="./photos/13.jpg" onclick="openModal(this.src)">
-        <img src="./photos/14.jpg" onclick="openModal(this.src)">
-        <img src="./photos/15.jpg" onclick="openModal(this.src)">
-        <img src="./photos/16.jpg" onclick="openModal(this.src)">
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal" onclick="closeModal()">
+        <img id="modalImg" style="display:none;">
+        <video id="modalVideo" controls style="display:none;"></video>
     </div>
-</div>
 
-<!-- 视频区 -->
-<div class="section-card">
-    <h2>🎬 独家影像</h2>
-    <div class="video-grid" id="videoGrid">
-        <!-- 这里放精选视频，建议 6-8 个 -->
-        <video controls preload="none" poster="./videos/poster1.jpg" onclick="this.play()">
-            <source src="./videos/1.mp4">
-        </video>
-        <video controls preload="none" poster="./videos/poster2.jpg" onclick="this.play()">
-            <source src="./videos/2.mp4">
-        </video>
-        <video controls preload="none" poster="./videos/poster3.jpg" onclick="this.play()">
-            <source src="./videos/3.mp4">
-        </video>
-        <video controls preload="none" poster="./videos/poster4.jpg" onclick="this.play()">
-            <source src="./videos/4.mp4">
-        </video>
-        <video controls preload="none" poster="./videos/poster4.jpg" onclick="this.play()">
-            <source src="./videos/5.mp4">
-        </video>
+    <script>
+        // 1. 生成飞舞的蝴蝶
+        function createButterflies() {
+            const container = document.getElementById('butterflies');
+            const butterflySrc = 'https://img.icons8.com/color/48/000000/butterfly.png'; // 在线图标，避免找不到文件
+            
+            for(let i=0; i<15; i++) {
+                const b = document.createElement('img');
+                b.src = butterflySrc;
+                b.className = 'butterfly';
+                b.style.left = Math.random() * 100 + '%';
+                b.style.animationDelay = Math.random() * 5 + 's';
+                b.style.width = (20 + Math.random() * 30) + 'px';
+                container.appendChild(b);
+            }
+        }
 
-    </div>
-</div>
+        // 2. 图片点击放大
+        function openModal(src) {
+            const modal = document.getElementById('myModal');
+            const img = document.getElementById('modalImg');
+            const video = document.getElementById('modalVideo');
+            
+            // 隐藏视频，显示图片
+            video.style.display = 'none';
+            video.pause();
+            
+            img.src = src;
+            img.style.display = 'block';
+            modal.style.display = 'flex';
+        }
 
-<div class="music-tip">🎵 点击进入后音乐自动播放</div>
+        // 3. 点击关闭弹窗
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
 
-</div>
-
-<!-- 模态框 -->
-<div class="modal" id="modal" onclick="closeModal()">
-    <img id="modalImg" src="">
-    <video id="modalVideo" controls style="display:none;"></video>
-</div>
-
-<script>
-/* ================= 密码解锁 ================= */
-function unlock() {
-    if (document.getElementById('pwd').value === '12080812') {
-        document.getElementById('lockScreen').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-        document.getElementById('bgm').play();
-        calcDays();
-        typeWriter();
-    } else {
-        alert('密码不对哦 🥲');
-    }
-}
-
-/* ================= 在一起天数 ================= */
-function calcDays() {
-    const start = new Date('2025-01-24'); // 修改纪念日
-    const days = Math.floor((new Date() - start) / 86400000);
-    document.getElementById('daysTogether').innerText = `💖 在一起的第 ${days} 天 💖`;
-}
-
-/* ================= 打字机 ================= */
-const letterText = "亲爱的：\n\n遇见你是我生命中最温柔的奇迹。\n每一天因为有你，都变得闪闪发光。\n未来的路，我们一起慢慢走。\n\n永远爱你 💕";
-let i = 0;
-function typeWriter() {
-    if (i < letterText.length) {
-        document.getElementById('loveLetter').innerHTML += letterText.charAt(i) === '\n' ? '<br>' : letterText.charAt(i);
-        i++;
-        setTimeout(typeWriter, 80);
-    }
-}
-
-/* ================= 模态框 ================= */
-function openModal(src) {
-    const modal = document.getElementById('modal');
-    const img = document.getElementById('modalImg');
-    const video = document.getElementById('modalVideo');
-    
-    if (src.endsWith('.mp4')) {
-        img.style.display = 'none';
-        video.style.display = 'block';
-        video.src = src;
-        video.play();
-    } else {
-        video.style.display = 'none';
-        img.style.display = 'block';
-        img.src = src;
-    }
-    modal.classList.add('active');
-}
-function closeModal() {
-    const modal = document.getElementById('modal');
-    const video = document.getElementById('modalVideo');
-    video.pause();
-    modal.classList.remove('active');
-}
-</script>
-
+        // 启动
+        window.onload = createButterflies;
+    </script>
 </body>
 </html>
